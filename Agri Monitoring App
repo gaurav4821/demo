@@ -1,0 +1,68 @@
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import { CloudSun, Bug, Map, Leaf, History } from "lucide-react";
+
+const dummyHistoricalData = [
+  { date: "2025-01", yield: 40 },
+  { date: "2025-02", yield: 45 },
+  { date: "2025-03", yield: 42 },
+  { date: "2025-04", yield: 48 },
+  { date: "2025-05", yield: 50 },
+];
+
+export default function AgriMonitoringApp() {
+  return (
+    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <Tabs defaultValue="crop-health">
+        <TabsList className="grid w-full grid-cols-5 mb-4">
+          <TabsTrigger value="crop-health"><Leaf className="inline-block mr-1" />Crop Health</TabsTrigger>
+          <TabsTrigger value="field-mapping"><Map className="inline-block mr-1" />Field Mapping</TabsTrigger>
+          <TabsTrigger value="pest-detection"><Bug className="inline-block mr-1" />Pest Detection</TabsTrigger>
+          <TabsTrigger value="weather-soil"><CloudSun className="inline-block mr-1" />Weather & Soil</TabsTrigger>
+          <TabsTrigger value="historical"><History className="inline-block mr-1" />Historical Data</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="crop-health">
+          <Card>
+            <CardContent className="p-4">Crop health metrics from drone imagery and NDVI analysis will be shown here.</CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="field-mapping">
+          <Card>
+            <CardContent className="p-4">Field boundaries, area calculations, and planting zones will be displayed on a map here.</CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="pest-detection">
+          <Card>
+            <CardContent className="p-4">Detected pests and disease patterns from image recognition models will be shown here.</CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="weather-soil">
+          <Card>
+            <CardContent className="p-4">Real-time weather and soil data such as moisture, temperature, and humidity will be integrated here.</CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="historical">
+          <Card>
+            <CardContent className="p-4">
+              <h3 className="text-lg font-semibold mb-2">Crop Yield Over Time</h3>
+              <LineChart width={500} height={300} data={dummyHistoricalData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="yield" stroke="#82ca9d" strokeWidth={2} />
+              </LineChart>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
